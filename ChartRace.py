@@ -62,13 +62,4 @@ ax = fig.add_subplot()
 anim = FuncAnimation(fig=fig, func=update, init_func=init, frames=len(df_expanded),
                      interval=100, repeat=False, blit=True)
 
-anim.save(filename="Test.gif", writer="ffmpeg", fps=50, metadata=dict(artist="me"), bitrate=5800)
-
-#anim.save('test.mp4', writer="ffmpeg")
-
-#Note to self, issue found, it originates from: 30, 31 :)
-
-#ax_array[0].set_title('Test1')
-#ax_array[-1].set_title('Test2')
-
-
+anim.save(filename='Media/Test.gif', writer="ffmpeg", fps=50, metadata=dict(artist="me"), bitrate=5800)
