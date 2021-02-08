@@ -20,4 +20,5 @@ You can also adjust the image size at Figsize, it currently only works with Inch
 # Sources
 
 [FFMpeg installation](https://suryadayn.medium.com/error-requested-moviewriter-ffmpeg-not-available-easy-fix-9d1890a487d3)
+
 [Python help](https://www.dunderdata.com/blog/create-a-bar-chart-race-animation-in-python-with-matplotlib#Expand-DataFrame-with-reindex)
