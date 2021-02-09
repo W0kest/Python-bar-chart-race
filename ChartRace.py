@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
+from datetime import datetime
 
 df = pd.read_csv('Data/BL_W01.csv', index_col='date',
                  parse_dates=['date'])
@@ -19,7 +20,7 @@ def init():
 def nice_axes(ax):
     ax.set_frame_on(True)  # If the grid background is visible or not
     ax.set_facecolor('0.8')  # Grid background, 0 being black, 1 being white
-    ax.tick_params(labelsize=12, length=5)  # Labelsize is how big the text is, length the line before it
+    ax.tick_params(labelsize=12, length=5, labelcolor="white")  # Labelsize is how big the text is, length the line before it
     ax.grid(True, axis='x', color=(0, 0, 0, 1))  # The grid lines, R, G, B, A only works with 1 or 0
     ax.set_axisbelow(True)  # Small lines at the bottom of the X axis
     [spine.set_visible(False) for spine in ax.spines.values()]
@@ -29,9 +30,9 @@ def update(i):
         bar.remove()  # Cleans the canvas of the previous frame
     y = df_rank_expanded.iloc[i] - HOffset  # Height offset for the bars
     width = df_expanded.iloc[i]  # Width offset?
-    ax.barh(y=y, width=width, color=colors, tick_label=labels, )  # Args given with the rendering of the canvas
-    #date_str = df_expanded.index[i].strftime('%B %-d, %Y')
-    #ax.set_title(f'Tijds data - {date_str}', fontsize='smaller')
+    ax.barh(y=y, width=width, color=colors, tick_label=labels)  # Args given with the rendering of the canvas
+    #date_str = df_expanded.index[i].strftime('%B, %-d, %Y')
+    ax.set_title(f'Bots data')# - {date_str}', fontsize='smaller')
 
 def prepare_data(df, steps=50):
     df = df.reset_index()  # Cleans up the CSV sheet while prepping it
@@ -44,8 +45,8 @@ def prepare_data(df, steps=50):
     df_rank_expanded = df_expanded.rank(axis=1, method='first')  # Keep Axis on 1, Method sorts on who has the highest numbers
     df_expanded = df_expanded.interpolate()  # Interpolates the steps between the original data sheet
     df_rank_expanded = df_rank_expanded.interpolate()  # Interpolates the ranking and the bar position
-    print(df_expanded)
-    print(df_rank_expanded)
+    print(df_expanded)  # Purely to see what numbers are being used
+    print(df_rank_expanded)  # How it translates to ranks
     return df_expanded, df_rank_expanded
 
 
@@ -62,4 +63,5 @@ ax = fig.add_subplot()
 anim = FuncAnimation(fig=fig, func=update, init_func=init, frames=len(df_expanded),
                      interval=100, repeat=False, blit=True)
 
-anim.save(filename='Media/Test.gif', writer="ffmpeg", fps=50, metadata=dict(artist="me"), bitrate=5800)
+# You can change the file export type by changing the .gif or .mp4 to something else
+anim.save(filename='Media/Race.gif', writer="ffmpeg", fps=50, metadata=dict(artist="me"), bitrate=5800)
