@@ -1,7 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
-from datetime import datetime
 
 df = pd.read_csv('Data/BL_W01.csv', index_col='date',
                  parse_dates=['date'])
